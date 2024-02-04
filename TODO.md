@@ -1,4 +1,14 @@
 # TODO
+- [ ] Create Functional Design Document
+  - Acceptance criteria
+    -  Include contents as below
+      - System overview
+      - System components and there function
+      - System non-functional requirement
+      - About requirement middleware
+      - Network diagram
+      - Naming rules
+      - IP Address Management
 - [x] Create two VMs as firewall
   - Acceptance criteria
     -  Can create and provision the VMs by **vagrant up --provision**
