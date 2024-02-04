@@ -1,0 +1,7 @@
+---
+- name: Set Kernel Parameter
+  become: true
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    sysctl_set: true

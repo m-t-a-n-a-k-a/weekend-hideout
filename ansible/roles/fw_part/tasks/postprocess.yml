@@ -1,0 +1,6 @@
+---
+- name: Ensure Started Ufw
+  become: true
+  ansible.builtin.service:
+    name: ufw
+    state: started

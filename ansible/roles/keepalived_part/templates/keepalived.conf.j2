@@ -1,0 +1,23 @@
+vrrp_sync_group VG {
+    group {
+{% for vi_group in keepalived_part_vi_group_list %}
+        {{ vi_group.name }}    
+{% endfor %}
+    }
+}
+
+{% for vi_group in keepalived_part_vi_group_list %}
+vrrp_instance {{ vi_group.name }} {
+    interface {{ vi_group.interface }}
+    virtual_router_id {{ vi_group.virtual_router_id }}
+    priority {{ keepalived_part_priority }}
+    advert_int {{ vi_group.advert_int }}
+    authentication {
+        auth_type PASS
+        auth_pass {{ vi_group.auth_pass }}
+    }
+    virtual_ipaddress {
+        {{ vi_group.virtual_ipaddress }}
+    }
+}
+{% endfor %}

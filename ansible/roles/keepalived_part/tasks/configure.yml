@@ -1,0 +1,6 @@
+---
+- name: Set Keepalived Config
+  become: true
+  ansible.builtin.template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf

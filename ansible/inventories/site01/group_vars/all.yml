@@ -1,0 +1,16 @@
+---
+ansible_connection: local
+
+if_management: enp0s3
+if_global: enp0s8
+if_dmz: enp0s9
+if_internal: enp0s10
+
+network_management: 10.0.2.0/24
+network_global: 192.168.201.0/24
+network_dmz: 192.168.202.0/24
+network_internal: 192.168.203.0/24
+
+vip_global: 192.168.201.10/24
+vip_dmz: 192.168.202.10/24
+vip_internal: 192.168.203.10/24

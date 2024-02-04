@@ -1,0 +1,37 @@
+---
+- name: Set Default Deny Policy
+  become: true
+  community.general.ufw:
+    direction: "{{ item }}"
+    policy: deny
+  loop:
+    - incoming
+    - routed
+
+- name: Set Allow Rule To Incoming
+  become: true
+  community.general.ufw:
+    rule: allow
+    comment: "{{ item.comment }}"
+    from_ip: "{{ item.from_ip }}"
+    interface_in: "{{ item.if_in | default(omit) }}"
+    port: "{{ item.port | default(omit) }}"
+  loop: "{{ fw_part_allow_incoming_list }}"
+
+- name: Set Allow Rule To Routing
+  become: true
+  community.general.ufw:
+    rule: allow
+    comment: "{{ item.comment }}"
+    route: true
+    from_ip: "{{ item.from_ip }}"
+    interface_in: "{{ item.if_in }}"
+    to_ip: "{{ item.to_ip }}"
+    interface_out: "{{ item.if_out }}"
+    port: "{{ item.port }}"
+  loop: "{{ fw_part_allow_routing_list }}"
+
+- name: Set UFW ON
+  become: true
+  community.general.ufw:
+    state: enabled

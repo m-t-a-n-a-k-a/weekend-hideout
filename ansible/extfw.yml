@@ -1,0 +1,10 @@
+---
+- hosts: extfw
+  gather_facts: false
+  tasks:
+    - ansible.builtin.include_role:
+        name: router_part
+    - ansible.builtin.include_role:
+        name: fw_part
+    - ansible.builtin.include_role:
+        name: keepalived_part

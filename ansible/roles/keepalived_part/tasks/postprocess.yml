@@ -1,0 +1,6 @@
+---
+- name: Ensure Started Keepalived
+  become: true
+  ansible.builtin.service:
+    name: keepalived
+    state: started

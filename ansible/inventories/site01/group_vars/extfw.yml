@@ -1,0 +1,82 @@
+---
+fw_part_allow_incoming_list:
+  - comment: "extfw pair internal -> self"
+    from_ip: "{{ extfw_pair_internal_ip}}"
+  - comment: "extfw pair dmz -> self"
+    from_ip: "{{ extfw_pair_dmz_ip }}"
+  - comment: "extfw pair global -> self"
+    from_ip: "{{ extfw_pair_global_ip }}"
+  - comment: "management -> self: SSH"
+    from_ip: "{{ network_management }}"
+    if_in: "{{ if_management }}"
+    port: 22
+
+fw_part_allow_routing_list:
+  - comment: "global -> dmz: HTTP"
+    from_ip: "{{ network_global }}"
+    if_in: "{{ if_global }}"
+    to_ip: "{{ network_dmz }}"
+    if_out: "{{ if_dmz }}"
+    port: 80
+  - comment: "global -> dmz: HTTPS"
+    from_ip: "{{ network_global }}"
+    if_in: "{{ if_global }}"
+    to_ip: "{{ network_dmz }}"
+    if_out: "{{ if_dmz }}"
+    port: 443
+  - comment: "internal -> global: SSH"
+    from_ip: "{{ network_internal }}"
+    if_in: "{{ if_internal }}"
+    to_ip: "{{ network_global }}"
+    if_out: "{{ if_dmz }}"
+    port: 22
+  - comment: "internal -> global: HTTP"
+    from_ip: "{{ network_internal }}"
+    if_in: "{{ if_internal }}"
+    to_ip: "{{ network_global }}"
+    if_out: "{{ if_dmz }}"
+    port: 80
+  - comment: "internal -> global: HTTPS"
+    from_ip: "{{ network_internal }}"
+    if_in: "{{ if_internal }}"
+    to_ip: "{{ network_global }}"
+    if_out: "{{ if_dmz }}"
+    port: 443
+  - comment: "internal -> dmz: SSH"
+    from_ip: "{{ network_internal }}"
+    if_in: "{{ if_internal }}"
+    to_ip: "{{ network_dmz }}"
+    if_out: "{{ if_dmz }}"
+    port: 22
+  - comment: "internal -> dmz: HTTP"
+    from_ip: "{{ network_internal }}"
+    if_in: "{{ if_internal }}"
+    to_ip: "{{ network_dmz }}"
+    if_out: "{{ if_dmz }}"
+    port: 80
+  - comment: "internal -> dmz: HTTPS"
+    from_ip: "{{ network_internal }}"
+    if_in: "{{ if_internal }}"
+    to_ip: "{{ network_dmz }}"
+    if_out: "{{ if_dmz }}"
+    port: 443
+
+keepalived_part_vi_group_list:
+  - name: "VI_GLOBAL"
+    interface: "{{ if_global }}"
+    virtual_router_id: 101
+    advert_int: 1
+    auth_pass: "password"
+    virtual_ipaddress: "{{ vip_global }}"
+  - name: "VI_DMZ"
+    interface: "{{ if_dmz }}"
+    virtual_router_id: 102
+    advert_int: 1
+    auth_pass: "password"
+    virtual_ipaddress: "{{ vip_dmz }}"
+  - name: "VI_INTERNAL"
+    interface: "{{ if_internal }}"
+    virtual_router_id: 103
+    advert_int: 1
+    auth_pass: "password"
+    virtual_ipaddress: "{{ vip_internal }}"

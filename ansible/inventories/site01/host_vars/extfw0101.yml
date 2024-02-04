@@ -1,0 +1,6 @@
+---
+keepalived_part_virtual_router_id: 11
+keepalived_part_priority: 111
+extfw_pair_global_ip: 192.168.201.12
+extfw_pair_dmz_ip: 192.168.202.12
+extfw_pair_internal_ip: 192.168.203.12

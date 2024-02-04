@@ -1,0 +1,7 @@
+---
+- name: Install Require Packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - keepalived
+    state: present
